@@ -39,8 +39,8 @@ pipeline {
                         environmentOrder = technicalenvironmentOrder                      
                     }
 
-                    echo awsLambdaConfig
-                    echo environmentOrder
+                    println awsLambdaConfig
+                    println environmentOrder
 
 					//echo params.environment
                     // Define the first choice parameter

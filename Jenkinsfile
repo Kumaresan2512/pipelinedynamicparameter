@@ -25,7 +25,7 @@ pipeline {
     parameters {
         choice(
             name: 'environments',
-            choices: environmentOrder,
+            choices: setEnvironment(),
             description: 'Choose the environment'
         )
         choice(
@@ -45,6 +45,7 @@ pipeline {
                 script {
                     echo "lambda= $lambda"
                     echo "ENV= $environment"
+					echo params.environment
                     // Define the first choice parameter
                     // def firstChoice = input(
                     //     id: 'firstChoice',
@@ -89,6 +90,6 @@ def getSecondChoices(firstChoice) {
 }
 
 def setEnvironment()
-{
-    return []
+{	if($lambda == "Product Characteristics")
+		return technicalawsLambdaConfig
 }

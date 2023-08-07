@@ -45,7 +45,7 @@ pipeline {
                 script {
                     echo "lambda= $lambda"
                     echo "ENV= $environment"
-					echo params.environment
+					//echo params.environment
                     // Define the first choice parameter
                     // def firstChoice = input(
                     //     id: 'firstChoice',

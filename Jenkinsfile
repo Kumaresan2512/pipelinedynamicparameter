@@ -41,7 +41,8 @@ pipeline {
 
                     println awsLambdaConfig
                     println environmentOrder
-
+                    print params.environment
+                    print params.lambda
 					//echo params.environment
                     // Define the first choice parameter
                     // def firstChoice = input(

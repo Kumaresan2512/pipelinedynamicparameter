@@ -25,7 +25,7 @@ pipeline {
     parameters {
         choice(
             name: 'environments',
-            choices: environmentOrder,
+            choices: technicalenvironmentOrder,
             description: 'Choose the environment'
         )
         choice(

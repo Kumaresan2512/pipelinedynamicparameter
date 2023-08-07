@@ -22,7 +22,6 @@ awsLambdaConfig = []
 environmentOrder = []
 pipeline {
     agent any
-
     stages {
         stage('Select Options') {
             steps {
@@ -74,6 +73,6 @@ def getSecondChoices(firstChoice) {
 }
 
 def setEnvironment()
-{	if($lambda == "Product Characteristics")
+{	if(lambda == "Product Characteristics")
 		return technicalawsLambdaConfig
 }

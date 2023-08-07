@@ -28,6 +28,20 @@ pipeline {
                 script {
                     echo "lambda= $lambda"
                     echo "ENV= $environment"
+                    if(lambda == "Catalog Selection")
+                    {     
+                        awsLambdaConfig  = catalogselectionawsLambdaConfig
+                        environmentOrder = catalogselectionenvironmentOrder                      
+                    }
+                    else 
+                    {
+                        awsLambdaConfig  = technicalawsLambdaConfig
+                        environmentOrder = technicalenvironmentOrder                      
+                    }
+
+                    echo $awsLambdaConfig
+                    echo $environmentOrder
+
 					//echo params.environment
                     // Define the first choice parameter
                     // def firstChoice = input(

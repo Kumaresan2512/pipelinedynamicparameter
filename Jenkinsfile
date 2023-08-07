@@ -1,13 +1,50 @@
+catalogselectionawsLambdaConfig = [
+    'dcrdev_test': ['accountID':'12345678', 'functionName': 'cs-documentation-ai-dev'],
+    'dcrdev': ['accountID':'12345678', 'functionName': 'cs-documentation-ai-devcd'],
+    'qa': ['accountID':'23456789', 'functionName': 'cs-documentation-devcd'],
+    'dev': ['accountID':'2345678911', 'functionName': 'cs-documentation-dev'],
+    'uat': ['accountID':'23456789111', 'functionName': 'cs-documentation-uat'],
+    'stg': ['accountID':'234567891111', 'functionName': 'cs-documentation-stg'],
+    'prod': ['accountID':'234567891111', 'functionName': 'cs-documentation-prod'],
+]
+
+technicalawsLambdaConfig = [
+    'dcrdev': ['accountID':'12345678', 'functionName': 'technical-documentation-dev'],
+    'qa': ['accountID':'23456789', 'functionName': 'technical-documentation-devcd'],
+    'dev': ['accountID':'2345678911', 'functionName': 'technical-documentation-dev'],
+    'uat': ['accountID':'23456789111', 'functionName': 'technical-documentation-uat'],
+    'stg': ['accountID':'234567891111', 'functionName': 'technical-documentation-stg'],
+    'prod': ['accountID':'234567891111', 'functionName': 'technical-documentation-prod'],
+]
+catalogselectionenvironmentOrder = ['dcrdev_test','dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+technicalenvironmentOrder = ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+awsLambdaConfig = []
+environmentOrder = []
 pipeline {
     agent any
-
+    parameters {
+        choice(
+            name: 'environments',
+            choices: environmentOrder,
+            description: 'Choose the environment'
+        )
+        choice(
+            name: 'mode',
+            choices: ['compare', 'details', 'update'],
+            description: """
+            Mode to run.<br>
+            'update'  -> Update functions.<br>
+            'compare' -> Compare function image and environment variables.<br>
+            'details' -> View the function details
+            """
+        )
+    }
     stages {
         stage('Select Options') {
             steps {
                 script {
-
+                    echo "lambda= $lambda"
                     echo "ENV= $environment"
-                    echo "BRANCH= $git_branch"
                     // Define the first choice parameter
                     // def firstChoice = input(
                     //     id: 'firstChoice',
@@ -49,4 +86,9 @@ def getSecondChoices(firstChoice) {
         default:
             return []
     }
+}
+
+def setEnvironment()
+{
+    return []
 }

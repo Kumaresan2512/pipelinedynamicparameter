@@ -114,11 +114,13 @@ properties([
                     script: '''return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
                 ]
             ],
-            fallbackscript: [
-                $class: 'GroovyScript',
-                script: [
-                    script: '''return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
-                ]
+            fallbackScript: [
+                    $class: 'GroovyScript', script: [
+                        classpath: [
+                            // Add any necessary classpath entries here
+                        ],
+                        script: '''return ['fallback1', 'fallback2']'''
+                    ]
             ],
             choiceType: 'PT_SINGLE_SELECT',
             description: 'Select the base environment',

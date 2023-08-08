@@ -111,8 +111,8 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: 
-                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+                    script: '''
+                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',

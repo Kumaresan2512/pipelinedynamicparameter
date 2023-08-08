@@ -111,9 +111,6 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    classpath: [
-                        // Add any necessary classpath entries here
-                    ],
                     script: '''
                         if (binding.variables['CHOICE1'] == 'dcrdev') {
                             return ['choice1-option1', 'choice1-option2', 'choice1-option3']
@@ -140,9 +137,15 @@ properties([
         [
             $class: 'ChoiceParameter',
             name: 'CHOICE1',
-            choices: [
-                'dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod'
+            script: [
+                $class: 'GroovyScript',
+                script: [
+                    script: '''
+                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+                    '''
+                ]
             ],
+            choiceType: 'PT_SINGLE_SELECT',
             description: 'Select the base environment',
             randomName: 'choice-parameter-2'
         ]

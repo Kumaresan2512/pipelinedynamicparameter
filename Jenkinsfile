@@ -23,22 +23,6 @@ environmentOrder = []
 
 pipeline {
     agent any
-        parameters {
-        choice(
-            choices: [
-                [$class: 'GroovyScript', script: [
-                    classpath: [
-                        // Add any necessary classpath entries here
-                    ],
-                    script: '''
-                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
-                    '''
-                ]]
-            ],
-            description: 'Select the technical environment',
-            name: 'ENVIRONMENT1',
-        )
-    }
     stages {
         stage('Select Options') {
             steps {
@@ -90,6 +74,33 @@ pipeline {
         }
     }
 }
+
+properties([
+  parameters([
+    [
+      $class: 'ChoiceParameter',
+      choiceType: 'PT_SINGLE_SELECT',
+      name: 'Environment',
+      script: [
+        $class: 'ScriptlerScript',
+        scriptlerScriptId:'Environments.groovy'
+      ]
+    ],
+    [
+      $class: 'CascadeChoiceParameter',
+      choiceType: 'PT_SINGLE_SELECT',
+      name: 'Host',
+      referencedParameters: 'Environment',
+      script: [
+        $class: 'ScriptlerScript',
+        scriptlerScriptId:'HostsInEnv.groovy',
+        parameters: [
+          [name:'Environment', value: '$Environment']
+        ]
+      ]
+   ]
+ ])
+])
 // properties([
 //     parameters([
 //         [

@@ -112,15 +112,13 @@ properties([
                 $class: 'GroovyScript',
                 script: [
                     script: '''return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
-                ]
-            ],
-            fallbackScript: [
-                    $class: 'GroovyScript', script: [
-                        classpath: [
-                            // Add any necessary classpath entries here
-                        ],
-                        script: '''return ['fallback1', 'fallback2']'''
-                    ]
+                ],
+                fallbackScript: [
+                    classpath: [], 
+                    sandbox: false, 
+                    script: 
+                        'return[\'Could not get Environment from Env Param\']'
+                ],
             ],
             choiceType: 'PT_SINGLE_SELECT',
             description: 'Select the base environment',
@@ -133,7 +131,8 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: '''if (lambda == 'dcrdev') {
+                    script: 
+                            '''if (lambda == 'dcrdev') {
                                     return ['choice1-option1', 'choice1-option2', 'choice1-option3']
                                 } else if (lambda == 'qa') {
                                     return ['choice2-option1', 'choice2-option2']
@@ -150,7 +149,8 @@ properties([
                                 }
                                 else {
                                     return ['']
-                                }'''
+                                }
+                            '''
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',

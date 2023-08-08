@@ -22,6 +22,23 @@ awsLambdaConfig = []
 environmentOrder = []
 pipeline {
     agent any
+        parameters {
+        choice(
+            name: 'coverage',
+            choices: ['all', 'image_uri', 'artifacts'],
+            description: 'Choose the deployment coverage'
+        )
+        choice(
+            name: 'mode',
+            choices: ['compare', 'details', 'update'],
+            description: """
+            Mode to run.<br>
+            'update'  -> Update functions.<br>
+            'compare' -> Compare function image and environment variables.<br>
+            'details' -> View the function details
+            """
+        )
+    }
     stages {
         stage('Select Options') {
             steps {

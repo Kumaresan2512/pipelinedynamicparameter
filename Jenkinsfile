@@ -105,6 +105,21 @@ pipeline {
 properties([
     parameters([
         [
+            $class: 'ChoiceParameter',
+            name: 'lambda',
+            script: [
+                $class: 'GroovyScript',
+                script: [
+                    script: '''
+                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+                    '''
+                ]
+            ],
+            choiceType: 'PT_SINGLE_SELECT',
+            description: 'Select the base environment',
+            randomName: 'choice-parameter-2'
+        ],
+        [
             $class: 'CascadeChoiceParameter',
             name: 'environment',
             description: 'Select the technical environment',
@@ -133,22 +148,7 @@ properties([
             choiceType: 'PT_SINGLE_SELECT',
             referencedParameters: 'lambda',
             randomName: 'choice-parameter-1'
-        ],
-        [
-            $class: 'ChoiceParameter',
-            name: 'lambda',
-            script: [
-                $class: 'GroovyScript',
-                script: [
-                    script: '''
-                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
-                    '''
-                ]
-            ],
-            choiceType: 'PT_SINGLE_SELECT',
-            description: 'Select the base environment',
-            randomName: 'choice-parameter-2'
-        ]
+        ]        
     ])
 ])
 

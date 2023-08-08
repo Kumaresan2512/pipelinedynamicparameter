@@ -143,7 +143,6 @@ properties([
                                     return ['choice5-option1', 'choice5-option2']
                                 } else if (lambda == 'prod') {
                                     return ['choice6-option1']
-                                }
                                 } else if (lambda == 'testing') {
                                     return ['choice6-option1']
                                 }

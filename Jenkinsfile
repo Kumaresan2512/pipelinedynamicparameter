@@ -37,7 +37,6 @@ pipeline {
             ],
             description: 'Select the technical environment',
             name: 'ENVIRONMENT1',
-            randomName: 'choice-parameter-1'
         )
     }
     stages {

@@ -105,20 +105,46 @@ pipeline {
 properties([
     parameters([
         [
-            $class: 'ChoiceParameter',
-            name: 'ENVIRONMENT1',
-            choices: [
-                [$class: 'GroovyScript', script: [
+            $class: 'CascadeChoiceParameter',
+            name: 'ENVIRONMENT',
+            description: 'Select the technical environment',
+            script: [
+                $class: 'GroovyScript',
+                script: [
                     classpath: [
                         // Add any necessary classpath entries here
                     ],
                     script: '''
-                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+                        if (binding.variables['CHOICE1'] == 'dcrdev') {
+                            return ['choice1-option1', 'choice1-option2', 'choice1-option3']
+                        } else if (binding.variables['CHOICE1'] == 'qa') {
+                            return ['choice2-option1', 'choice2-option2']
+                        } else if (binding.variables['CHOICE1'] == 'dev') {
+                            return ['choice3-option1', 'choice3-option2']
+                        } else if (binding.variables['CHOICE1'] == 'uat') {
+                            return ['choice4-option1']
+                        } else if (binding.variables['CHOICE1'] == 'stg') {
+                            return ['choice5-option1', 'choice5-option2']
+                        } else if (binding.variables['CHOICE1'] == 'prod') {
+                            return ['choice6-option1']
+                        } else {
+                            return []
+                        }
                     '''
-                ]]
+                ]
             ],
-            description: 'Select the technical environment',
+            choiceType: 'PT_SINGLE_SELECT',
+            referencedParameters: 'CHOICE1',
             randomName: 'choice-parameter-1'
+        ],
+        [
+            $class: 'ChoiceParameter',
+            name: 'CHOICE1',
+            choices: [
+                'dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod'
+            ],
+            description: 'Select the base environment',
+            randomName: 'choice-parameter-2'
         ]
     ])
 ])

@@ -20,26 +20,7 @@ catalogselectionenvironmentOrder = ['dcrdev_test','dcrdev', 'qa', 'dev', 'uat', 
 technicalenvironmentOrder = ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
 awsLambdaConfig = []
 environmentOrder = []
-properties([
-    parameters([
-        [
-            $class: 'ChoiceParameter',
-            name: 'ENVIRONMENT1',
-            choices: [
-                [$class: 'GroovyScript', script: [
-                    classpath: [
-                        // Add any necessary classpath entries here
-                    ],
-                    script: '''
-                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
-                    '''
-                ]]
-            ],
-            description: 'Select the technical environment',
-            randomName: 'choice-parameter-1'
-        ]
-    ])
-])
+
 pipeline {
     agent any
         parameters {
@@ -121,6 +102,26 @@ pipeline {
         }
     }
 }
+properties([
+    parameters([
+        [
+            $class: 'ChoiceParameter',
+            name: 'ENVIRONMENT1',
+            choices: [
+                [$class: 'GroovyScript', script: [
+                    classpath: [
+                        // Add any necessary classpath entries here
+                    ],
+                    script: '''
+                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+                    '''
+                ]]
+            ],
+            description: 'Select the technical environment',
+            randomName: 'choice-parameter-1'
+        ]
+    ])
+])
 
 // Function to generate second choices based on the first choice
 def getSecondChoices(firstChoice) {

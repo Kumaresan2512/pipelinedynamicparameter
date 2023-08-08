@@ -111,8 +111,7 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: '''
-                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
+                    script: 'return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',
@@ -126,8 +125,7 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: '''
-                        if (lambda == 'dcrdev') {
+                    script: 'if (lambda == 'dcrdev') {
                             return ['choice1-option1', 'choice1-option2', 'choice1-option3']
                         } else if (lambda == 'qa') {
                             return ['choice2-option1', 'choice2-option2']
@@ -141,7 +139,7 @@ properties([
                             return ['choice6-option1']
                         } else {
                             return ['']
-                        }'''
+                        }'
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',

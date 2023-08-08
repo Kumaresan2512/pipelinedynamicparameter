@@ -126,7 +126,7 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: 
+                    script: '''
                         if (lambda == 'dcrdev') {
                             return ['choice1-option1', 'choice1-option2', 'choice1-option3']
                         } else if (lambda == 'qa') {
@@ -141,7 +141,7 @@ properties([
                             return ['choice6-option1']
                         } else {
                             return ['']
-                        }
+                        }'''
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',

@@ -25,32 +25,20 @@ pipeline {
     agent any
         parameters {
         choice(
-            name: 'coverage',
-            choices: ['all', 'image_uri', 'artifacts'],
-            description: 'Choose the deployment coverage'
+            choices: [
+                [$class: 'GroovyScript', script: [
+                    classpath: [
+                        // Add any necessary classpath entries here
+                    ],
+                    script: '''
+                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+                    '''
+                ]]
+            ],
+            description: 'Select the technical environment',
+            name: 'ENVIRONMENT1',
+            randomName: 'choice-parameter-1'
         )
-        choice(
-            name: 'mode',
-            choices: ['compare', 'details', 'update'],
-            description: """
-            Mode to run.<br>
-            'update'  -> Update functions.<br>
-            'compare' -> Compare function image and environment variables.<br>
-            'details' -> View the function details
-            """
-        )
-        // activeChoiceReactive(
-        //     name: 'server',
-        //     script: """
-        //     def environment = input('Select the environment', choices: ['dev', 'uat', 'prod'])
-        //     def servers = ['server1', 'server2', 'server3']
-        //     if (environment == 'dev') {
-        //         servers.remove('server3')
-        //     }
-        //     return servers
-        //     """,
-        //     description: 'Select the server to deploy to'
-        // )
     }
     stages {
         stage('Select Options') {
@@ -103,121 +91,121 @@ pipeline {
         }
     }
 }
-properties([
-    parameters([
-        [
-            $class: 'ChoiceParameter',
-            name: 'lambda',
-            script: [
-                $class: 'GroovyScript',
-                script: [
-                    script: '''return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
-                ],
-                fallbackScript: [
-                    classpath: [], 
-                    sandbox: false, 
-                    script: 
-                        'return[\'Could not get Environment from Env Param\']'
-                ],
-            ],
-            choiceType: 'PT_SINGLE_SELECT',
-            description: 'Select the base environment',
-            randomName: 'choice-parameter-2'
-        ],
-        [
-            $class: 'CascadeChoiceParameter',
-            name: 'environment',
-            description: 'Select the technical environment',
-            script: [
-                $class: 'GroovyScript',
-                script: [
-                    script: 
-                            '''if (lambda == 'dcrdev') {
-                                    return ['choice1-option1', 'choice1-option2', 'choice1-option3']
-                                } else if (lambda == 'qa') {
-                                    return ['choice2-option1', 'choice2-option2']
-                                } else if (lambda == 'dev') {
-                                    return ['choice3-option1', 'choice3-option2']
-                                } else if (lambda == 'uat') {
-                                    return ['choice4-option1']
-                                } else if (lambda == 'stg') {
-                                    return ['choice5-option1', 'choice5-option2']
-                                } else if (lambda == 'prod') {
-                                    return ['choice6-option1']
-                                } else if (lambda == 'testing') {
-                                    return ['choice6-option1']
-                                }
-                                else {
-                                    return ['']
-                                }
-                            '''
-                ]
-            ],
-            choiceType: 'PT_SINGLE_SELECT',
-            referencedParameters: 'lambda',
-            randomName: 'choice-parameter-1'
-        ],
-        [$class: 'ChoiceParameter', 
-            choiceType: 'PT_SINGLE_SELECT', 
-            description: 'Select the Env Name from the Dropdown List', 
-            filterLength: 1, 
-            filterable: true, 
-            name: 'Env', 
-            randomName: 'choice-parameter-5631314439613978', 
-            script: [
-                $class: 'GroovyScript', 
-                fallbackScript: [
-                    classpath: [], 
-                    sandbox: false, 
-                    script: 
-                        'return[\'Could not get Env\']'
-                ], 
-                script: [
-                    classpath: [], 
-                    sandbox: false, 
-                    script: 
-                        'return["Dev","QA","Stage","Prod"]'
-                ]
-            ]
-        ], 
-        [$class: 'CascadeChoiceParameter', 
-            choiceType: 'PT_SINGLE_SELECT', 
-            description: 'Select the Server from the Dropdown List', 
-            filterLength: 1, 
-            filterable: true, 
-            name: 'Server', 
-            randomName: 'choice-parameter-5631314456178619', 
-            referencedParameters: 'Env', 
-            script: [
-                $class: 'GroovyScript', 
-                fallbackScript: [
-                    classpath: [], 
-                    sandbox: false, 
-                    script: 
-                        '''return[\'Could not get Environment from Env Param\']'''
-                ], 
-                script: [
-                    classpath: [], 
-                    sandbox: false, 
-                    script: 
-                        ''' if (Env.equals("Dev")){
-                                return["devaaa001","devaaa002","devbbb001","devbbb002","devccc001","devccc002"]
-                            }
-                            else if(Env.equals("QA")){
-                                return["qaaaa001","qabbb002","qaccc003"]
-                            }
-                            else if(Env.equals("Stage")){
-                                return["staaa001","stbbb002","stccc003"]
-                            }
-                            else if(Env.equals("Prod")){
-                                return["praaa001","prbbb002","prccc003"]
-                            }
-                        '''
-                ]
-            ]
-        ]
-    ])
-])
+// properties([
+//     parameters([
+//         [
+//             $class: 'ChoiceParameter',
+//             name: 'lambda',
+//             script: [
+//                 $class: 'GroovyScript',
+//                 script: [
+//                     script: '''return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
+//                 ],
+//                 fallbackScript: [
+//                     classpath: [], 
+//                     sandbox: false, 
+//                     script: 
+//                         'return[\'Could not get Environment from Env Param\']'
+//                 ],
+//             ],
+//             choiceType: 'PT_SINGLE_SELECT',
+//             description: 'Select the base environment',
+//             randomName: 'choice-parameter-2'
+//         ],
+//         [
+//             $class: 'CascadeChoiceParameter',
+//             name: 'environment',
+//             description: 'Select the technical environment',
+//             script: [
+//                 $class: 'GroovyScript',
+//                 script: [
+//                     script: 
+//                             '''if (lambda == 'dcrdev') {
+//                                     return ['choice1-option1', 'choice1-option2', 'choice1-option3']
+//                                 } else if (lambda == 'qa') {
+//                                     return ['choice2-option1', 'choice2-option2']
+//                                 } else if (lambda == 'dev') {
+//                                     return ['choice3-option1', 'choice3-option2']
+//                                 } else if (lambda == 'uat') {
+//                                     return ['choice4-option1']
+//                                 } else if (lambda == 'stg') {
+//                                     return ['choice5-option1', 'choice5-option2']
+//                                 } else if (lambda == 'prod') {
+//                                     return ['choice6-option1']
+//                                 } else if (lambda == 'testing') {
+//                                     return ['choice6-option1']
+//                                 }
+//                                 else {
+//                                     return ['']
+//                                 }
+//                             '''
+//                 ]
+//             ],
+//             choiceType: 'PT_SINGLE_SELECT',
+//             referencedParameters: 'lambda',
+//             randomName: 'choice-parameter-1'
+//         ],
+//         [$class: 'ChoiceParameter', 
+//             choiceType: 'PT_SINGLE_SELECT', 
+//             description: 'Select the Env Name from the Dropdown List', 
+//             filterLength: 1, 
+//             filterable: true, 
+//             name: 'Env', 
+//             randomName: 'choice-parameter-5631314439613978', 
+//             script: [
+//                 $class: 'GroovyScript', 
+//                 fallbackScript: [
+//                     classpath: [], 
+//                     sandbox: false, 
+//                     script: 
+//                         'return[\'Could not get Env\']'
+//                 ], 
+//                 script: [
+//                     classpath: [], 
+//                     sandbox: false, 
+//                     script: 
+//                         'return["Dev","QA","Stage","Prod"]'
+//                 ]
+//             ]
+//         ], 
+//         [$class: 'CascadeChoiceParameter', 
+//             choiceType: 'PT_SINGLE_SELECT', 
+//             description: 'Select the Server from the Dropdown List', 
+//             filterLength: 1, 
+//             filterable: true, 
+//             name: 'Server', 
+//             randomName: 'choice-parameter-5631314456178619', 
+//             referencedParameters: 'Env', 
+//             script: [
+//                 $class: 'GroovyScript', 
+//                 fallbackScript: [
+//                     classpath: [], 
+//                     sandbox: false, 
+//                     script: 
+//                         '''return[\'Could not get Environment from Env Param\']'''
+//                 ], 
+//                 script: [
+//                     classpath: [], 
+//                     sandbox: false, 
+//                     script: 
+//                         ''' if (Env.equals("Dev")){
+//                                 return["devaaa001","devaaa002","devbbb001","devbbb002","devccc001","devccc002"]
+//                             }
+//                             else if(Env.equals("QA")){
+//                                 return["qaaaa001","qabbb002","qaccc003"]
+//                             }
+//                             else if(Env.equals("Stage")){
+//                                 return["staaa001","stbbb002","stccc003"]
+//                             }
+//                             else if(Env.equals("Prod")){
+//                                 return["praaa001","prbbb002","prccc003"]
+//                             }
+//                         '''
+//                 ]
+//             ]
+//         ]
+//     ])
+// ])
 
 // Function to generate second choices based on the first choice
 def getSecondChoices(firstChoice) {

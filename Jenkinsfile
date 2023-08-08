@@ -20,6 +20,26 @@ catalogselectionenvironmentOrder = ['dcrdev_test','dcrdev', 'qa', 'dev', 'uat', 
 technicalenvironmentOrder = ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
 awsLambdaConfig = []
 environmentOrder = []
+properties([
+    parameters([
+        [
+            $class: 'ChoiceParameter',
+            name: 'ENVIRONMENT1',
+            choices: [
+                [$class: 'GroovyScript', script: [
+                    classpath: [
+                        // Add any necessary classpath entries here
+                    ],
+                    script: '''
+                        return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
+                    '''
+                ]]
+            ],
+            description: 'Select the technical environment',
+            randomName: 'choice-parameter-1'
+        ]
+    ])
+])
 pipeline {
     agent any
         parameters {
@@ -38,18 +58,18 @@ pipeline {
             'details' -> View the function details
             """
         )
-        activeChoiceReactive(
-            name: 'server',
-            script: """
-            def environment = input('Select the environment', choices: ['dev', 'uat', 'prod'])
-            def servers = ['server1', 'server2', 'server3']
-            if (environment == 'dev') {
-                servers.remove('server3')
-            }
-            return servers
-            """,
-            description: 'Select the server to deploy to'
-        )
+        // activeChoiceReactive(
+        //     name: 'server',
+        //     script: """
+        //     def environment = input('Select the environment', choices: ['dev', 'uat', 'prod'])
+        //     def servers = ['server1', 'server2', 'server3']
+        //     if (environment == 'dev') {
+        //         servers.remove('server3')
+        //     }
+        //     return servers
+        //     """,
+        //     description: 'Select the server to deploy to'
+        // )
     }
     stages {
         stage('Select Options') {

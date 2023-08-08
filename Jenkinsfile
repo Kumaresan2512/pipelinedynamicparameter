@@ -137,10 +137,11 @@ properties([
                 ],
             ],
             choiceType: 'PT_SINGLE_SELECT',
-            description: '''Mode to run.<br/>
-                            'update' -> Update functions.<br/>
-                            'compare' -> Compare function image and environment variables.<br/>
-                            'details' -> View the function details<br/>''',
+            description:
+            '''Mode to run.
+            'update' -> Update functions.
+            'compare' -> Compare function image and environment variables.
+            'details' -> View the function details''',
             randomName: 'choice-mode'
         ]
         // [$class: 'ChoiceParameter', 

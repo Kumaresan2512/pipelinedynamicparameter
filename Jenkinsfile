@@ -137,8 +137,7 @@ properties([
                 ],
             ],
             choiceType: 'PT_SINGLE_SELECT',
-            description:
-            '''Mode to run.
+            description:'''Mode to run.
             'update' -> Update functions.
             'compare' -> Compare function image and environment variables.
             'details' -> View the function details''',

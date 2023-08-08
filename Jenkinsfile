@@ -56,23 +56,24 @@ pipeline {
         stage('Select Options') {
             steps {
                 script {
-                    echo "lambda= $lambda"
-                    echo "ENV= $environment"
-                    if(lambda == "Catalog Selection")
-                    {     
-                        awsLambdaConfig  = catalogselectionawsLambdaConfig
-                        environmentOrder = catalogselectionenvironmentOrder                      
-                    }
-                    else 
-                    {
-                        awsLambdaConfig  = technicalawsLambdaConfig
-                        environmentOrder = technicalenvironmentOrder                      
-                    }
+                    echo 'success'
+                    // echo "lambda= $lambda"
+                    // echo "ENV= $environment"
+                    // if(lambda == "Catalog Selection")
+                    // {     
+                    //     awsLambdaConfig  = catalogselectionawsLambdaConfig
+                    //     environmentOrder = catalogselectionenvironmentOrder                      
+                    // }
+                    // else 
+                    // {
+                    //     awsLambdaConfig  = technicalawsLambdaConfig
+                    //     environmentOrder = technicalenvironmentOrder                      
+                    // }
 
-                    println awsLambdaConfig
-                    println environmentOrder
-                    print params.environment
-                    print params.lambda
+                    // println awsLambdaConfig
+                    // println environmentOrder
+                    // print params.environment
+                    // print params.lambda
 					//echo params.environment
                     // Define the first choice parameter
                     // def firstChoice = input(

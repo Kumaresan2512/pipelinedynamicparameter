@@ -125,21 +125,7 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: '''if (lambda == 'dcrdev') {
-                            return ['choice1-option1', 'choice1-option2', 'choice1-option3']
-                        } else if (lambda == 'qa') {
-                            return ['choice2-option1', 'choice2-option2']
-                        } else if (lambda == 'dev') {
-                            return ['choice3-option1', 'choice3-option2']
-                        } else if (lambda == 'uat') {
-                            return ['choice4-option1']
-                        } else if (lambda == 'stg') {
-                            return ['choice5-option1', 'choice5-option2']
-                        } else if (lambda == 'prod') {
-                            return ['choice6-option1']
-                        } else {
-                            return ['']
-                        }'''
+                    script: '''if (lambda == 'dcrdev') {return ['choice1-option1', 'choice1-option2', 'choice1-option3']} else if (lambda == 'qa') {return ['choice2-option1', 'choice2-option2']} else if (lambda == 'dev') {return ['choice3-option1', 'choice3-option2']} else if (lambda == 'uat') {return ['choice4-option1']} else if (lambda == 'stg') {return ['choice5-option1', 'choice5-option2']} else if (lambda == 'prod') {return ['choice6-option1']} else {return ['']}'''
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',

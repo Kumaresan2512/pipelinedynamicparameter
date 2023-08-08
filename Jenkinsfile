@@ -111,9 +111,8 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: '''
+                    script: 
                         return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']
-                    '''
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',
@@ -127,23 +126,22 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script: '''
-                        if (binding.variables['CHOICE1'] == 'dcrdev') {
+                    script: 
+                        if (lambda == 'dcrdev') {
                             return ['choice1-option1', 'choice1-option2', 'choice1-option3']
-                        } else if (binding.variables['CHOICE1'] == 'qa') {
+                        } else if (lambda == 'qa') {
                             return ['choice2-option1', 'choice2-option2']
-                        } else if (binding.variables['CHOICE1'] == 'dev') {
+                        } else if (lambda == 'dev') {
                             return ['choice3-option1', 'choice3-option2']
-                        } else if (binding.variables['CHOICE1'] == 'uat') {
+                        } else if (lambda == 'uat') {
                             return ['choice4-option1']
-                        } else if (binding.variables['CHOICE1'] == 'stg') {
+                        } else if (lambda == 'stg') {
                             return ['choice5-option1', 'choice5-option2']
-                        } else if (binding.variables['CHOICE1'] == 'prod') {
+                        } else if (lambda == 'prod') {
                             return ['choice6-option1']
                         } else {
-                            return []
+                            return ['']
                         }
-                    '''
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',

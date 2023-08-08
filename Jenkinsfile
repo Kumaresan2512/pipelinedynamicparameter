@@ -106,7 +106,7 @@ properties([
     parameters([
         [
             $class: 'CascadeChoiceParameter',
-            name: 'ENVIRONMENT',
+            name: 'environment',
             description: 'Select the technical environment',
             script: [
                 $class: 'GroovyScript',
@@ -131,12 +131,12 @@ properties([
                 ]
             ],
             choiceType: 'PT_SINGLE_SELECT',
-            referencedParameters: 'CHOICE1',
+            referencedParameters: 'lambda',
             randomName: 'choice-parameter-1'
         ],
         [
             $class: 'ChoiceParameter',
-            name: 'CHOICE1',
+            name: 'lambda',
             script: [
                 $class: 'GroovyScript',
                 script: [

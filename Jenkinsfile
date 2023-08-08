@@ -38,6 +38,18 @@ pipeline {
             'details' -> View the function details
             """
         )
+        activeChoiceReactive(
+            name: 'server',
+            script: """
+            def environment = input('Select the environment', choices: ['dev', 'uat', 'prod'])
+            def servers = ['server1', 'server2', 'server3']
+            if (environment == 'dev') {
+                servers.remove('server3')
+            }
+            return servers
+            """,
+            description: 'Select the server to deploy to'
+        )
     }
     stages {
         stage('Select Options') {

@@ -114,6 +114,12 @@ properties([
                     script: '''return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
                 ]
             ],
+            fallbackScript: [
+                $class: 'GroovyScript',
+                script: [
+                    script: '''return ['dcrdev', 'qa', 'dev', 'uat', 'stg', 'prod']'''
+                ]
+            ],
             choiceType: 'PT_SINGLE_SELECT',
             description: 'Select the base environment',
             randomName: 'choice-parameter-2'
@@ -125,7 +131,7 @@ properties([
             script: [
                 $class: 'GroovyScript',
                 script: [
-                    script:  '''if (lambda == 'dcrdev') {
+                    script: '''if (lambda == 'dcrdev') {
                                     return ['choice1-option1', 'choice1-option2', 'choice1-option3']
                                 } else if (lambda == 'qa') {
                                     return ['choice2-option1', 'choice2-option2']
